@@ -23,13 +23,13 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
+            buildConfigField("String", "BASE_URL", "\"https://development.coeur.app.br/\"")
         }
         release {
             optimization {
                 enable = false
             }
-            buildConfigField("String", "BASE_URL", "\"https://orion.devraimundos.com.br/\"")
+            buildConfigField("String", "BASE_URL", "\"https://production.coeur.app.br/\"")
         }
     }
     buildFeatures {
