@@ -8,6 +8,7 @@ data class LogoutRequest(val refreshToken: String)
 
 data class TokenResponse(
     val accessToken: String,
-    val expiresAt: String,
-    val refreshToken: String
+    val refreshToken: String,
+    val tokenType: String,
+    val expiresIn: Long
 )
