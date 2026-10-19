@@ -38,11 +38,11 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             val result = authRepository.login(state.email, state.password)
-            _uiState.update {
+            _uiState.update { current ->
                 result.fold(
-                    onSuccess = { it.copy(isLoading = false, isLoggedIn = true) },
+                    onSuccess = { current.copy(isLoading = false, isLoggedIn = true) },
                     onFailure = { error ->
-                        it.copy(isLoading = false, errorMessage = error.message ?: "Falha ao entrar.")
+                        current.copy(isLoading = false, errorMessage = error.message ?: "Falha ao entrar.")
                     }
                 )
             }
