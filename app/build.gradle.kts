@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -7,14 +8,12 @@ plugins {
 
 android {
     namespace = "br.app.coeur"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.app.coeur"
         minSdk = 34
-        targetSdk = 37
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -26,9 +25,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
         }
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", "\"https://orion.devraimundos.com.br/\"")
         }
     }
@@ -37,8 +34,15 @@ android {
         compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
