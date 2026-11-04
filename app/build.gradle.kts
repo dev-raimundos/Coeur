@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -8,12 +7,14 @@ plugins {
 
 android {
     namespace = "br.app.coeur"
-    compileSdk = 35
+    compileSdk {
+        version = release(37)
+    }
 
     defaultConfig {
         applicationId = "br.app.coeur"
         minSdk = 34
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -22,11 +23,13 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
+            buildConfigField("String", "BASE_URL", "\"https://development.coeur.app.br/\"")
         }
         release {
-            isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"https://orion.devraimundos.com.br/\"")
+            optimization {
+                enable = false
+            }
+            buildConfigField("String", "BASE_URL", "\"https://production.coeur.app.br/\"")
         }
     }
     buildFeatures {
@@ -59,6 +62,7 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
+    implementation(libs.compose.material.icons.core)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
