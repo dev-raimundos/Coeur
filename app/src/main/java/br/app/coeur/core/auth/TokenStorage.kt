@@ -1,4 +1,4 @@
-package br.app.coeur.core.security
+package br.app.coeur.core.auth
 
 import android.content.Context
 import androidx.datastore.core.DataStore

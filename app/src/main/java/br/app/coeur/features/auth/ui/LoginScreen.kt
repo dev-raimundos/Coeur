@@ -1,4 +1,4 @@
-package br.app.coeur.modules.auth.presentation
+package br.app.coeur.features.auth.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,8 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = hiltViewModel()
+    onLoginSuccess: () -> Unit, viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -38,8 +37,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center
+            .padding(24.dp), verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Entrar", style = MaterialTheme.typography.headlineMedium)
 

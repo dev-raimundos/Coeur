@@ -1,6 +1,6 @@
 package br.app.coeur.core.network
 
-import br.app.coeur.core.security.TokenStorage
+import br.app.coeur.core.auth.TokenStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

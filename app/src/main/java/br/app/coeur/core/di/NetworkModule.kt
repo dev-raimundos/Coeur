@@ -1,9 +1,9 @@
 package br.app.coeur.core.di
 
 import br.app.coeur.BuildConfig
-import br.app.coeur.modules.auth.data.AuthApi
+import br.app.coeur.features.auth.data.AuthApi
 import br.app.coeur.core.network.AuthInterceptor
-import br.app.coeur.core.network.TokenAuthenticator
+import br.app.coeur.features.auth.data.TokenAuthenticator
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

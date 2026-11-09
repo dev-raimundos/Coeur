@@ -1,4 +1,4 @@
-package br.app.coeur.modules.auth.domain
+package br.app.coeur.features.auth.data
 
 interface AuthRepository {
     suspend fun login(email: String, password: String): Result<Unit>

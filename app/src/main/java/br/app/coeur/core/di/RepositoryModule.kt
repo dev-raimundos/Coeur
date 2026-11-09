@@ -1,7 +1,7 @@
 package br.app.coeur.core.di
 
-import br.app.coeur.modules.auth.domain.AuthRepository
-import br.app.coeur.modules.auth.data.AuthRepositoryImpl
+import br.app.coeur.features.auth.data.AuthRepository
+import br.app.coeur.features.auth.data.AuthRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,7 +1,6 @@
-package br.app.coeur.modules.auth.data
+package br.app.coeur.features.auth.data
 
-import br.app.coeur.core.security.TokenStorage
-import br.app.coeur.modules.auth.domain.AuthRepository
+import br.app.coeur.core.auth.TokenStorage
 import javax.inject.Inject
 import javax.inject.Singleton
 

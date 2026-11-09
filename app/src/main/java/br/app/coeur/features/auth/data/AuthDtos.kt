@@ -1,4 +1,4 @@
-package br.app.coeur.modules.auth.data
+package br.app.coeur.features.auth.data
 
 data class LoginRequest(val email: String, val password: String)
 

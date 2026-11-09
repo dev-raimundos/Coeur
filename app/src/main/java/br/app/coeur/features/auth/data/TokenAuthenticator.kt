@@ -1,8 +1,6 @@
-package br.app.coeur.core.network
+package br.app.coeur.features.auth.data
 
-import br.app.coeur.core.security.TokenStorage
-import br.app.coeur.modules.auth.data.AuthApi
-import br.app.coeur.modules.auth.data.RefreshRequest
+import br.app.coeur.core.auth.TokenStorage
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
