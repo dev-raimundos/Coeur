@@ -1,6 +1,8 @@
-package br.app.coeur.data.auth.remote
+package br.app.coeur.core.network
 
-import br.app.coeur.data.auth.local.TokenLocalDataSource
+import br.app.coeur.core.security.TokenStorage
+import br.app.coeur.modules.auth.data.AuthApi
+import br.app.coeur.modules.auth.data.RefreshRequest
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -9,7 +11,7 @@ import okhttp3.Route
 import javax.inject.Inject
 
 class TokenAuthenticator @Inject constructor(
-    private val tokenLocalDataSource: TokenLocalDataSource,
+    private val tokenStorage: TokenStorage,
     private val authApi: AuthApi
 ) : Authenticator {
 
@@ -19,14 +21,14 @@ class TokenAuthenticator @Inject constructor(
         val failedAccessToken = response.request.header("Authorization")
 
         synchronized(this) {
-            val currentAccessToken = tokenLocalDataSource.getAccessToken()
+            val currentAccessToken = tokenStorage.getAccessToken()
             if (currentAccessToken != null && "Bearer $currentAccessToken" != failedAccessToken) {
                 return response.request.newBuilder()
                     .header("Authorization", "Bearer $currentAccessToken")
                     .build()
             }
 
-            val refreshToken = tokenLocalDataSource.getRefreshToken() ?: return null
+            val refreshToken = tokenStorage.getRefreshToken() ?: return null
 
             val result = try {
                 runBlocking { authApi.refresh(RefreshRequest(refreshToken)) }
@@ -35,11 +37,11 @@ class TokenAuthenticator @Inject constructor(
             }
 
             if (result == null) {
-                tokenLocalDataSource.clearTokens()
+                tokenStorage.clearTokens()
                 return null
             }
 
-            tokenLocalDataSource.saveTokens(result.accessToken, result.refreshToken)
+            tokenStorage.saveTokens(result.accessToken, result.refreshToken)
 
             return response.request.newBuilder()
                 .header("Authorization", "Bearer ${result.accessToken}")

@@ -1,4 +1,4 @@
-package br.app.coeur.ui.login
+package br.app.coeur.modules.auth.presentation
 
 data class LoginUiState(
     val email: String = "",

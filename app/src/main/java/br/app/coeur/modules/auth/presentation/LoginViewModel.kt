@@ -1,8 +1,8 @@
-package br.app.coeur.ui.login
+package br.app.coeur.modules.auth.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.app.coeur.data.auth.AuthRepository
+import br.app.coeur.modules.auth.domain.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,9 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
-) : ViewModel() {
+class LoginViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -42,9 +40,10 @@ class LoginViewModel @Inject constructor(
                 result.fold(
                     onSuccess = { currentState.copy(isLoading = false, isLoggedIn = true) },
                     onFailure = { error ->
-                        currentState.copy(isLoading = false, errorMessage = error.message ?: "Falha ao entrar.")
-                    }
-                )
+                        currentState.copy(
+                            isLoading = false, errorMessage = error.message ?: "Falha ao entrar."
+                        )
+                    })
             }
         }
     }

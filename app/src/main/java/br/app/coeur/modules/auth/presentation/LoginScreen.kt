@@ -1,4 +1,4 @@
-package br.app.coeur.ui.login
+package br.app.coeur.modules.auth.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

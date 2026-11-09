@@ -1,4 +1,4 @@
-package br.app.coeur.ui.demo
+package br.app.coeur.shared.ui.demo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

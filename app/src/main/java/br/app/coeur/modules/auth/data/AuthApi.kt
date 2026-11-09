@@ -1,4 +1,4 @@
-package br.app.coeur.data.auth.remote
+package br.app.coeur.modules.auth.data
 
 import retrofit2.http.Body
 import retrofit2.http.POST

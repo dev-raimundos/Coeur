@@ -1,4 +1,4 @@
-package br.app.coeur.data.auth.local
+package br.app.coeur.core.security
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 private val Context.tokenDataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_tokens")
 
 @Singleton
-class TokenLocalDataSource @Inject constructor(@ApplicationContext private val context: Context) {
+class TokenStorage @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val aead: Aead by lazy {
         AeadConfig.register()

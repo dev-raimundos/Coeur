@@ -1,4 +1,4 @@
-package br.app.coeur.di
+package br.app.coeur.core.di
 
 import javax.inject.Qualifier
 

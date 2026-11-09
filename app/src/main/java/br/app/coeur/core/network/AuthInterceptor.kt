@@ -1,12 +1,12 @@
-package br.app.coeur.data.auth.remote
+package br.app.coeur.core.network
 
-import br.app.coeur.data.auth.local.TokenLocalDataSource
+import br.app.coeur.core.security.TokenStorage
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val tokenLocalDataSource: TokenLocalDataSource
+    private val tokenStorage: TokenStorage
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -16,7 +16,7 @@ class AuthInterceptor @Inject constructor(
             return chain.proceed(original)
         }
 
-        val accessToken = tokenLocalDataSource.getAccessToken() ?: return chain.proceed(original)
+        val accessToken = tokenStorage.getAccessToken() ?: return chain.proceed(original)
 
         val authorized = original.newBuilder()
             .header("Authorization", "Bearer $accessToken")
