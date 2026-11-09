@@ -1,5 +1,6 @@
-package br.app.coeur.features.auth.data
+package br.app.coeur.core.network
 
+import br.app.coeur.core.auth.TokenRefresher
 import br.app.coeur.core.auth.TokenStorage
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 class TokenAuthenticator @Inject constructor(
     private val tokenStorage: TokenStorage,
-    private val authApi: AuthApi
+    private val tokenRefresher: TokenRefresher
 ) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
@@ -28,21 +29,19 @@ class TokenAuthenticator @Inject constructor(
 
             val refreshToken = tokenStorage.getRefreshToken() ?: return null
 
-            val result = try {
-                runBlocking { authApi.refresh(RefreshRequest(refreshToken)) }
+            val accessToken = try {
+                runBlocking { tokenRefresher.refreshAccessToken(refreshToken) }
             } catch (e: Exception) {
                 null
             }
 
-            if (result == null) {
+            if (accessToken == null) {
                 tokenStorage.clearTokens()
                 return null
             }
 
-            tokenStorage.saveTokens(result.accessToken, result.refreshToken)
-
             return response.request.newBuilder()
-                .header("Authorization", "Bearer ${result.accessToken}")
+                .header("Authorization", "Bearer $accessToken")
                 .build()
         }
     }
